@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema Integral SENA</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- LOGO SENA con fondo blanco -->
+        <div class="logo-container">
+            <img src="/img/sena.png" class="logo-sena" alt="Logo SENA">
+            <h2>SISTEMA</h2>
+        </div>
+
+        <ul class="menu">
+            <li><a href="/dashboard">🏠 Dashboard</a></li>
+            <li><a href="/usuarios">👥 Usuarios</a></li>
+            <li><a href="/fichas">📘 Fichas</a></li>
+            <li><a href="/psicologia">🧠 Psicología</a></li>
+            <li><a href="/reportes">📊 Reportes</a></li>
+        </ul>
+
+        <form action="/logout" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">Cerrar Sesión</button>
+        </form>
+
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="content">
+
+        <!-- HEADER (aquí va la imagen Bienestar) -->
+        <div class="header">
+            <img src="/img/bienestar.png" class="header-image" alt="Bienestar al Aprendiz">
+        </div>
+
+        <h2 class="welcome">Bienvenido al Sistema Integral SENA 👋</h2>
+
+    </div>
+
+</body>
+
+</html>
