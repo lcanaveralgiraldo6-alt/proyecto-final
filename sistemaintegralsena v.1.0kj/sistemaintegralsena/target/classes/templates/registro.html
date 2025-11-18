@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e8f5e9;
+        }
+        .register-container {
+            width: 80%;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 8px solid #0A7C59;
+            box-shadow: 0 0 18px rgba(0,0,0,0.1);
+        }
+        .btn-sena {
+            background: #0A7C59;
+            color: white;
+        }
+        .btn-sena:hover {
+            background: #075b42;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <h2 class="mb-4 text-center">Registro de Usuario</h2>
+
+    <form th:action="@{/registro}" method="post" id="registroForm" novalidate>
+
+        <!-- NOMBRE -->
+        <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" name="nombre" class="form-control" id="nombre"
+                   required pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$">
+            <div class="invalid-feedback">
+                Solo se permiten letras y espacios.
+            </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" name="email" class="form-control" id="email" required>
+            <div class="invalid-feedback">
+                Ingrese un correo válido.
+            </div>
+        </div>
+
+        <!-- CONTRASEÑA -->
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" name="password" class="form-control" id="password" required
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
+>
+            <div class="invalid-feedback">
+                La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y símbolo.
+            </div>
+        </div>
+
+        <!-- CONFIRMAR -->
+        <div class="mb-3">
+            <label class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="confirmPassword" required>
+            <div class="invalid-feedback">
+                Las contraseñas no coinciden.
+            </div>
+        </div>
+
+        <!-- ROL -->
+        <div class="mb-3">
+            <label class="form-label">Rol</label>
+            <select class="form-control" name="rol" required>
+                <option value="">Seleccione un rol</option>
+                <option value="PSICOLOGA">Psicóloga</option>
+                <option value="T_SOCIAL">Trabajador Social</option>
+            </select>
+            <div class="invalid-feedback">
+                Seleccione un rol.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-sena w-100">Registrarse</button>
+
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById("registroForm");
+    const pass = document.getElementById("password");
+    const pass2 = document.getElementById("confirmPassword");
+
+    form.addEventListener("submit", function (event) {
+
+        // Validación de contraseña repetida
+        if (pass.value !== pass2.value) {
+            pass2.setCustomValidity("No coincide");
+        } else {
+            pass2.setCustomValidity("");
+        }
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+    });
+</script>
+
+</body>
+</html>

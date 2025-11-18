@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+<h1>Bienvenido al Dashboard</h1>
+
+<p><strong>Usuario logueado:</strong> <span th:text="${usuario}"></span></p>
+
+<p><strong>Roles:</strong>
+    <span th:each="r : ${roles}" th:text="${r.authority} + ' '"></span>
+</p>
+
+<hr>
+
+<!-- ADMIN -->
+<div sec:authorize="hasRole('ADMIN')">
+    <h2>Zona ADMIN</h2>
+    <ul>
+        <li>Gestión de Usuarios</li>
+        <li>Reportes del Sistema</li>
+        <li>Administración General</li>
+    </ul>
+</div>
+
+<!-- PSICOLOGA -->
+<div sec:authorize="hasRole('PSICOLOGA')">
+    <h2>Zona Psicóloga</h2>
+    <ul>
+        <li>Gestión de Historias Clínicas</li>
+        <li>Seguimientos Psicológicos</li>
+    </ul>
+</div>
+
+<!-- TRABAJO SOCIAL -->
+<div sec:authorize="hasRole('T_SOCIAL')">
+    <h2>Zona Trabajo Social</h2>
+    <ul>
+        <li>Gestión de Casos Sociales</li>
+        <li>Visitas Domiciliarias</li>
+    </ul>
+</div>
+
+<hr>
+
+<a href="/logout">Cerrar sesión</a>
+
+</body>
+</html>
