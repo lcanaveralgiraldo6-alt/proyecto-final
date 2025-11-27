@@ -1,116 +1,207 @@
-/* ===== GENERAL ===== */
+/* =========================================
+   1. ESTILOS BASE Y LAYOUT (Estructura)
+   ========================================= */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    display: flex;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar {
-    width: 260px;
-    background: #3c009d;
-    height: 100vh;
-    color: white;
-    padding-top: 20px;
-    position: fixed;
-}
-
-/* Contenedor del logo con fondo blanco */
-.logo-container {
-    background: white;
-    width: 85%;
-    margin: 0 auto 25px auto;
-    padding: 20px 10px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-/* Logo Sena optimizado */
-.logo-sena {
-    width: 120px;
-}
-
-.logo-container h2 {
-    margin-top: 10px;
-    color: #3c009d;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.menu {
-    list-style: none;
     padding: 0;
+    background-color: #f4f7f6; 
+    min-height: 100vh; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- SIDEBAR (IZQUIERDA - FIJO) --- */
+.sidebar {
+    width: 250px;
+    background-color: #0077c9; /* Azul SENA */
+    color: white;
+    padding: 20px 0;
+    height: 100vh; /* Altura completa */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Se queda quieto al hacer scroll */
+    top: 0; 
+    left: 0; 
+    z-index: 1000; /* Siempre encima */
+    overflow-y: auto;
+}
+
+.sidebar h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s;
+    font-weight: 600;
+    border-left: 4px solid transparent;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active a {
+    background-color: #0060a0;
+    border-left: 4px solid #1abc9c; /* Borde verde activo */
+}
+
+/* --- CONTENIDO PRINCIPAL (DERECHA) --- */
+.main-content {
+    margin-left: 250px; /* 🔑 CLAVE: Deja el espacio exacto para el sidebar */
+    width: calc(100% - 250px); /* Ocupa el resto del ancho */
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
+   2. HEADER Y TARJETAS
+   ========================================= */
+.header-top {
+    background-color: white;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 120px;
+}
+
+.header-image-container {
+    flex-grow: 1;
+    max-width: 75%;   /* 🔥 Aquí LIMITAMOS el área de la imagen */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* 🔥 Evita que se pase */
+}
+
+
+.header-dashboard-image {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.user-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 150px;
+}
+.user-info { font-weight: 600; color: #333; margin-bottom: 5px; }
+.btn-logout {
+    background: none; border: 1px solid #d9534f; border-radius: 4px;
+    color: #d9534f; cursor: pointer; padding: 5px 10px; font-weight: 600;
+}
+.btn-logout:hover { background: #d9534f; color: white; }
+
+.dashboard-area { padding: 30px; flex-grow: 1; }
+
+/* Tarjetas de Métricas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     margin-top: 20px;
 }
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #1abc9c;
+}
+.stat-card h4 { color: #0077c9; margin: 0 0 10px 0; }
+.stat-card .value { font-size: 2.5em; font-weight: bold; color: #333; margin: 0; }
 
-.menu li {
+
+/* =========================================
+   3. ESTILOS DE TABLAS (CRUD) - ¡CORREGIDO!
+   ========================================= */
+
+.actions-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     margin-bottom: 20px;
 }
 
-.menu a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    padding-left: 20px;
-    display: block;
+.btn-main {
+    padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;
+    display: inline-flex; align-items: center; gap: 5px; color: white;
+}
+.btn-create { background: #1abc9c; }
+.btn-create:hover { background: #16a085; }
+.btn-import { background: #27ae60; margin-right: 10px; }
+.btn-import:hover { background: #219150; }
+
+/* CONTENEDOR DE LA TABLA CON SCROLL */
+.table-container {
+    background: white; 
+    padding: 25px; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    
+    /* 🔑 CLAVE: Esto hace que el scroll aparezca DENTRO de la caja blanca */
+    width: 100%; 
+    overflow-x: auto; 
 }
 
-/* Hover menú */
-.menu a:hover {
-    background: #4b12b8;
-    padding: 10px 20px;
-    border-radius: 8px;
-}
-
-/* Botón cerrar sesión */
-.logout-form {
-    position: absolute;
-    bottom: 20px;
+.crud-table {
     width: 100%;
-    text-align: center;
+    border-collapse: separate; 
+    border-spacing: 0;
+    white-space: nowrap; /* Evita que el texto se parta feo */
 }
 
-.logout-btn {
-    background: #ff5722;
-    color: white;
-    padding: 12px;
-    width: 80%;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
+.crud-table thead { background: #0077c9; color: white; }
+.crud-table th { padding: 15px; text-align: left; }
+.crud-table td { padding: 15px; border-bottom: 1px solid #eee; }
+
+.crud-table th.center, .crud-table td.center { text-align: center; }
+
+/* Botones de acción */
+.action-buttons { display: flex; gap: 5px; justify-content: center; }
+.btn-table-action {
+    padding: 5px 10px; border-radius: 4px; text-decoration: none;
+    font-size: 0.85em; color: white !important; font-weight: 600;
+}
+.btn-edit { background-color: #f39c12; }
+.btn-delete { background-color: #e74c3c; }
+
+.badge-info {
+    background: #eef2f7; color: #0077c9; padding: 4px 8px; 
+    border-radius: 4px; font-weight: 700; font-size: 0.9em;
 }
 
-.logout-btn:hover {
-    background: #e64a19;
+/* =========================================
+   4. FORMULARIOS (Inputs y Textareas)
+   ========================================= */
+.form-container {
+    background: #ffffff; padding: 30px; border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%; max-width: 900px; margin: 0 auto;
 }
 
-/* ===== CONTENIDO ===== */
-.content {
-    margin-left: 260px;
-    padding: 20px;
-    width: 100%;
+/* Inputs normales y selects */
+.form-control {
+    width: 100%; padding: 10px; border: 1px solid #ced4da;
+    border-radius: 5px; box-sizing: border-box;
 }
 
-/* HEADER - Aquí va la imagen nueva */
-.header {
-    background: #f9a825;
-    padding: 10px 0;
-    text-align: center;
-    border-radius: 8px;
-}
-
-.header-image {
-    width: 60%;
-    border-radius: 14px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.18);
-    display: block;
-    margin: auto;
-}
-
-/* Texto bienvenida */
-.welcome {
-    margin-top: 30px;
-    font-size: 24px;
+/* Textareas Fijos y con Scroll */
+textarea.form-control {
+    resize: none;      /* No estirar */
+    height: 100px;     /* Altura fija */
+    overflow-y: auto;  /* Scroll si hay mucho texto */
+    font-family: inherit;
 }
